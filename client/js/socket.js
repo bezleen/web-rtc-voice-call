@@ -2,7 +2,7 @@
 let name = prompt("Input your name: ", "Guest");
 
 // let socket = io.connect("http://0.0.0.0:5000/rtc");
-let socket = io.connect("https://7114-2a09-bac0-23-00-815-bc3.ngrok.io/rtc");
+let socket = io.connect("https://a032-171-226-36-206.ngrok.io/rtc");
 let rawPayload = { name };
 $("#user_name").html(name);
 const $users_online = $("#userOnline > ul");

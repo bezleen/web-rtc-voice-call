@@ -64,7 +64,7 @@ testButton.addEventListener('click', testAction);
 stopTestButton.addEventListener('click', stoptestAction);
 initButton.addEventListener('click', initializeCall);
 callButton.addEventListener('click', makeOffer);
-hangupButton.addEventListener('click', {});
+hangupButton.addEventListener('click', hangUp);
 
 
 // RTC PEER CONNECTION
@@ -130,4 +130,28 @@ function makeOffer() {
     return peerConn.setLocalDescription(offer);
   });
   console.log(peerConn);
+}
+
+function hangUp() {
+  // close transceivers
+  if (peerConn.getTransceivers) {
+    peerConn.getTransceivers().forEach(function (transceiver) {
+      if (transceiver.stop) {
+        transceiver.stop();
+      }
+    });
+  }
+
+  // close local audio 
+  peerConn.getSenders().forEach(function (sender) {
+    sender.track.stop();
+  });
+
+  // close peer connection
+  setTimeout(function () {
+    peerConn.close();
+    initializeCall();
+  }, 500);
+
+
 }
